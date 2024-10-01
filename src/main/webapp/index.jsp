@@ -9,5 +9,7 @@
 </h1>
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
+<jsp:include page="employeeForm.jsp" />
+
 </body>
 </html>
