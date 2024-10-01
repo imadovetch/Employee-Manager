@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="GE.model.Employee" table="employees">
+
+        <!-- ID mapping -->
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+
+        <!-- Property mappings -->
+        <property name="name" column="name"/>
+        <property name="email" column="email"/>
+        <property name="phone" column="phone_number"/>
+        <property name="position" column="position"/>
+        <property name="department" column="department"/>
+
+    </class>
+</hibernate-mapping>

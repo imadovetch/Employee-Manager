@@ -1,14 +1,13 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome to JeeGe</title>
+    <title>JSP - Hello World</title>
 </head>
 <body>
-<h1>Welcome to the JeeGe Application</h1>
-<a href="hello">Go to Servlet</a> <!-- Link to the servlet -->
-<form method="post" action="hello">
-    <button type="submit">Submit via POST</button>
-</form>
-
+<h1><%= "Hello World!" %>
+</h1>
+<br/>
+<a href="hello-servlet">Hello Servlet</a>
 </body>
 </html>
