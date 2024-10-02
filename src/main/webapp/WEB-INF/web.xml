@@ -27,4 +27,17 @@
         <servlet-name>EmployeeController</servlet-name>
         <url-pattern>/addEmployee</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>EmployeeController</servlet-name>
+        <url-pattern>/GetEmployee</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeController</servlet-name>
+        <url-pattern>/DelEmployee/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeController</servlet-name>
+        <url-pattern>/ModifyEmployee/*</url-pattern>
+    </servlet-mapping>
 </web-app>
