@@ -23,10 +23,9 @@ public class EmployeeController extends HttpServlet {
 
         if (employees != null) {
             request.setAttribute("employees", employees);
-
             request.getRequestDispatcher("Home.jsp").forward(request, response);
         } else {
-            // Handle case where no employees are found
+
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.getWriter().write("No employees found.");
         }
@@ -50,10 +49,7 @@ public class EmployeeController extends HttpServlet {
         if (name != null && email != null && phone_number != null && position != null && department != null) {
             Employee employee = new Employee(name, email, phone_number, position, department);
 
-            employeeDAO.save(employee);  // Assuming `save` returns a boolean indicating success.
-
-
-
+            employeeDAO.save(employee);
                 session.setAttribute("flashMessage", "Employee added successfully!");
 
             response.sendRedirect(request.getContextPath() + "/");
