@@ -37,20 +37,23 @@
     margin: 10px;
     border: 1px solid;
     flex-grow: 1;
+    max-height:95% ;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+    overflow-y: auto;
   }
   .Column{
     flex-grow: 1;
     border: 1px solid black;
     display: flex;
     flex-direction: column;
+
   }
   .ColumnName{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10%;
+    min-height: 70px;
     padding: 0;
     margin: 0;
     border-bottom: 2px solid;
@@ -60,7 +63,7 @@
   }
   .RowsContainer, .RowsActionsr{
     width: 100%;
-    height: 90%;
+    height: fit-content;
   }
   .RowsActionsr{
     display: flex;
@@ -75,7 +78,31 @@
     justify-content: center;
     align-items: center;
     display: flex;
+    overflow: hidden;
   }
+  input {
+    border: none;
+    margin: 0;
+    display: flex;
+    text-align: center;
+    height: 100%;
+    background: none;
+    width: 100%;
+    max-height: 100%;
+    max-width: 100%;
+  }
+  input:focus{
+    border: none;
+
+
+  }
+  input::placeholder {
+    text-align: center;
+  }
+.highlight{
+  transform: scale(1.5);
+  background: aqua; !important;
+}
 </style>
 </html>
 

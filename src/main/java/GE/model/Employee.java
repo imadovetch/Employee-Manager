@@ -22,6 +22,14 @@ public class Employee {
         this.position = position;
         this.department = department;
     }
+    public Employee( int id ,String name, String email, String phone, String position, String department) {
+        this.name = name;
+        this.id = id;
+        this.email = email;
+        this.phone = phone;
+        this.position = position;
+        this.department = department;
+    }
 
     public String getName() {
         return name;

@@ -85,63 +85,73 @@ public class EmployeeController extends HttpServlet {
 
     @Override
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Set character encoding to handle UTF-8
+
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=UTF-8");
+        String pathInfo = request.getPathInfo();
 
-        // Read the input data
-        BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
-        StringBuilder sb = new StringBuilder();
-        String line;
+        if (pathInfo != null && pathInfo.length() > 1) {
+            // Read the input data
+            BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line;
 
-        while ((line = br.readLine()) != null) {
-            sb.append(line);
-        }
+            String idString = pathInfo.substring(1);
+            int employeeId = Integer.parseInt(idString);
 
-        String data = sb.toString(); // Get the complete request body
-        System.out.println("Received data: " + data); // Optional: log the received data
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
 
-        // Assuming the data is URL-encoded, parse it
-        String[] params = data.split("&");
-        String name = null, email = null, phone = null, position = null, department = null;
+            String data = sb.toString(); // Get the complete request body
+            System.out.println("Received data: " + data); // Optional: log the received data
 
-        for (String param : params) {
-            String[] keyValue = param.split("=");
-            if (keyValue.length == 2) {
-                String key = URLDecoder.decode(keyValue[0], StandardCharsets.UTF_8.name());
-                String value = URLDecoder.decode(keyValue[1], StandardCharsets.UTF_8.name());
+            // Assuming the data is URL-encoded, parse it
+            String[] params = data.split("&");
+            String name = null, email = null, phone = null, position = null, department = null;
 
-                switch (key) {
-                    case "name":
-                        name = value;
-                        break;
-                    case "email":
-                        email = value;
-                        break;
-                    case "phone":
-                        phone = value;
-                        break;
-                    case "position":
-                        position = value;
-                        break;
-                    case "department":
-                        department = value;
-                        break;
+            for (String param : params) {
+                String[] keyValue = param.split("=");
+                if (keyValue.length == 2) {
+                    String key = URLDecoder.decode(keyValue[0], StandardCharsets.UTF_8.name());
+                    String value = URLDecoder.decode(keyValue[1], StandardCharsets.UTF_8.name());
+
+                    switch (key) {
+                        case "name":
+                            name = value;
+                            break;
+                        case "email":
+                            email = value;
+                            break;
+                        case "phone":
+                            phone = value;
+                            break;
+                        case "position":
+                            position = value;
+                            break;
+                        case "department":
+                            department = value;
+                            break;
+                    }
                 }
             }
+
+            // Call the DAO update method
+            try {
+                Employee employee = new Employee(name, email, phone, position, department);
+                employeeDAO.update(employee,employeeId);
+                response.setStatus(HttpServletResponse.SC_OK); // 200 OK
+                response.getWriter().write("Employee updated successfully.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
+                response.getWriter().write("Error updating employee: " + e.getMessage());
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 Bad Request
+            response.getWriter().write("Invalid employee ID.");
         }
 
-        // Call the DAO update method
-        try {
-            Employee employee = new Employee(name, email, phone, position, department);
-            employeeDAO.update(employee,3); // Call the update method
-            response.setStatus(HttpServletResponse.SC_OK); // 200 OK
-            response.getWriter().write("Employee updated successfully.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
-            response.getWriter().write("Error updating employee: " + e.getMessage());
-        }
     }
 
     @Override
