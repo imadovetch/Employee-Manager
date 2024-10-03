@@ -81,7 +81,7 @@
       </div>
       <div style="background-color: rgba(253, 0, 0, 0.241);" class="ActionColumn">
         <c:forEach var="employee" items="${employees}">
-          <div class="SingleRow">${employee.id}</div>
+          <div onclick="deleteEmp(${employee.id})" class="SingleRow">${employee.id}</div>
         </c:forEach>
       </div>
     </div>
@@ -101,24 +101,25 @@
   }
 
   function update(id) {
+
     var Rowsinput = document.querySelectorAll(".Rowinput-" + id);
 
-    var formData = new FormData();
+    // Create a data object
+    var data = {
+      "name": Rowsinput[0].value,
+      "email": Rowsinput[1].value,
+      "phone": Rowsinput[2].value,
+      "position": Rowsinput[3].value,
+      "department": Rowsinput[4].value
+    };
 
-    formData.append("name", Rowsinput[0].value);
-    formData.append("email", Rowsinput[1].value);
-    formData.append("phone", Rowsinput[2].value);
-    formData.append("position", Rowsinput[3].value);
-    formData.append("department", Rowsinput[4].value);
-
-    console.log("Form Data:", formData);
 
     $.ajax({
       type: 'PUT',
       url: 'ModifyEmployee/' + id,
-      data: formData,
-      processData: false,
-      contentType: false,
+      data: JSON.stringify(data),
+      processData: false, // No processing for data
+      contentType: 'application/json', // Set content type to JSON
       success: function (response) {
         console.log("Success:", response);
       },
@@ -127,5 +128,23 @@
       }
     });
   }
+
+  function deleteEmp(id) {
+    $.ajax({
+      type: 'DELETE',
+      url: 'DelEmployee/' + id,
+
+      processData: false,
+      contentType: 'application/json',
+      success: function (response) {
+        console.log("Success:", response);
+        delete it display hidden or somthing when deleted
+      },
+      error: function (xhr) {
+        alert("Error: " + xhr.responseText);
+      }
+    });
+  }
+
 </script>
 

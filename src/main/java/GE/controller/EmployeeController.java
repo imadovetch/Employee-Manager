@@ -20,25 +20,6 @@ public class EmployeeController extends HttpServlet {
     private final EmployeeDAO employeeDAO = new EmployeeDAO();
 
     @Override
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//
-//        // Fetch all employees from the database
-//        List<Employee> employees = employeeDAO.fetchAllEmployees();
-//
-//        if (employees != null) {
-//            Gson gson = new Gson();
-//            String employeeJson = gson.toJson(employees);
-//
-//            response.setContentType("application/json");
-//            response.setCharacterEncoding("UTF-8");
-//            response.setStatus(HttpServletResponse.SC_OK); // 200 OK
-//            response.getWriter().write(employeeJson);
-//        } else {
-//            response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404 Not Found
-//            response.getWriter().write("No employees found.");
-//        }
-//    }
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -85,79 +66,49 @@ public class EmployeeController extends HttpServlet {
 
     @Override
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        // Set character encoding to handle UTF-8
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=UTF-8");
+
         String pathInfo = request.getPathInfo();
 
         if (pathInfo != null && pathInfo.length() > 1) {
-            // Read the input data
-            BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
-            StringBuilder sb = new StringBuilder();
-            String line;
-
+            // Get the employee ID from the path
             String idString = pathInfo.substring(1);
             int employeeId = Integer.parseInt(idString);
+
+            // Read the input data
+            StringBuilder sb = new StringBuilder();
+            String line;
+            BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
 
-            String data = sb.toString(); // Get the complete request body
-            System.out.println("Received data: " + data); // Optional: log the received data
+            String jsonData = sb.toString(); // Get the complete request body
+            System.out.println("Received data: " + jsonData); // Log the received data
 
-            // Assuming the data is URL-encoded, parse it
-            String[] params = data.split("&");
-            String name = null, email = null, phone = null, position = null, department = null;
-
-            for (String param : params) {
-                String[] keyValue = param.split("=");
-                if (keyValue.length == 2) {
-                    String key = URLDecoder.decode(keyValue[0], StandardCharsets.UTF_8.name());
-                    String value = URLDecoder.decode(keyValue[1], StandardCharsets.UTF_8.name());
-
-                    switch (key) {
-                        case "name":
-                            name = value;
-                            break;
-                        case "email":
-                            email = value;
-                            break;
-                        case "phone":
-                            phone = value;
-                            break;
-                        case "position":
-                            position = value;
-                            break;
-                        case "department":
-                            department = value;
-                            break;
-                    }
-                }
-            }
+            // Parse the JSON data
+            Gson gson = new Gson();
+            Employee employee = gson.fromJson(jsonData, Employee.class);
 
             // Call the DAO update method
             try {
-                Employee employee = new Employee(name, email, phone, position, department);
-                employeeDAO.update(employee,employeeId);
+                employeeDAO.update(employee, employeeId);
                 response.setStatus(HttpServletResponse.SC_OK); // 200 OK
-                response.getWriter().write("Employee updated successfully.");
+                response.getWriter().write("{\"message\": \"Employee updated successfully.\"}");
             } catch (Exception e) {
                 e.printStackTrace();
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
-                response.getWriter().write("Error updating employee: " + e.getMessage());
+                response.getWriter().write("{\"error\": \"Error updating employee: " + e.getMessage() + "\"}");
             }
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 Bad Request
-            response.getWriter().write("Invalid employee ID.");
+            response.getWriter().write("{\"error\": \"Invalid employee ID.\"}");
         }
-
     }
-//    public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String pathInfo = request.getPathInfo();
-//        response.setStatus(200);
-//        response.getWriter().write("Invalid employee ID." + pathInfo);
-// }
+
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -171,6 +122,7 @@ public class EmployeeController extends HttpServlet {
 
             if (deleted) {
                 response.setStatus(HttpServletResponse.SC_NO_CONTENT); // 204 No Content
+                response.getWriter().write("Deleted successfly.");
             } else {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404 Not Found
                 response.getWriter().write("Employee not found.");
