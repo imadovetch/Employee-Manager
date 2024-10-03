@@ -41,13 +41,13 @@ public class EmployeeDAO {
         return employees;
     }
 
-    public boolean update(Employee employee) {
+    public boolean update(Employee employee,int id) {
         Transaction transaction = null;
         boolean isUpdated = false;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Employee existingEmployee = session.get(Employee.class, employee.getId());
+            Employee existingEmployee = session.get(Employee.class, id);
 
             if (existingEmployee != null) {
                 existingEmployee.setName(employee.getName());
@@ -60,7 +60,7 @@ public class EmployeeDAO {
                 transaction.commit();
                 isUpdated = true;
             } else {
-                System.out.println("Employee not found with ID: " + employee.getId());
+                System.out.println("Employee not found with ID: " + id);
             }
         } catch (Exception e) {
             if (transaction != null) {

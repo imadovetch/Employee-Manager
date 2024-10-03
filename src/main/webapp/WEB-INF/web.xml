@@ -40,4 +40,8 @@
         <servlet-name>EmployeeController</servlet-name>
         <url-pattern>/ModifyEmployee/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeController</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 </web-app>
