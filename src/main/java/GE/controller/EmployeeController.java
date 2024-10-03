@@ -153,6 +153,11 @@ public class EmployeeController extends HttpServlet {
         }
 
     }
+//    public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        String pathInfo = request.getPathInfo();
+//        response.setStatus(200);
+//        response.getWriter().write("Invalid employee ID." + pathInfo);
+// }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
