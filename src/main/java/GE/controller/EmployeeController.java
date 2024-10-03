@@ -52,10 +52,10 @@ public class EmployeeController extends HttpServlet {
             employeeDAO.save(employee);
                 session.setAttribute("flashMessage", "Employee added successfully!");
 
-            response.sendRedirect(request.getContextPath() + "/");
+            response.sendRedirect(request.getContextPath() + "/"); //http://localhost:8080/Employee-Manager/
         } else {
             session.setAttribute("flashMessage", "Please fill out all the fields.");
-            response.sendRedirect("Home.jsp");
+            response.sendRedirect(request.getContextPath() + "/");
         }
     }
 
