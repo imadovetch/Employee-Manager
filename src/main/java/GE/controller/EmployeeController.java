@@ -69,7 +69,7 @@ public class EmployeeController extends HttpServlet {
         // Call the DAO update method
         try {
             Employee employee = new Employee(name, email, phone, position, department);
-            employeeDAO.update(employee,3); // Call the update method
+            employeeDAO.update(employee,1); // Call the update method
             response.setStatus(HttpServletResponse.SC_OK); // 200 OK
             response.getWriter().write("Employee updated successfully.");
         } catch (Exception e) {

@@ -19,16 +19,6 @@
                 var formData = $(this).serialize(); // Serialize form data
 
                 $.ajax({
-                    type: 'POST',
-                    url: 'ModifyEmployee/1',
-                    data: formData,
-                    success: function (response) {
-                    },
-                    error: function (xhr) {
-                        alert("Error: " + xhr.responseText);
-                    }
-                });
-                $.ajax({
                     type: 'PUT',
                     url: 'ModifyEmployee/1',
                     data: formData,
@@ -41,25 +31,6 @@
                 });
             });
 
-            // Handle delete form submission
-            document.querySelector("#deleteForm").addEventListener("submit", function (event) {
-                event.preventDefault(); // Prevent default form submission
-
-                var formData = $(this).serialize(); // Serialize form data
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'DelEmployee/3',
-                    data: formData,
-                    success: function (response) {
-                        alert("Employee deleted successfully!");
-                        document.querySelector("#deleteForm").reset(); // Clear the form fields
-                    },
-                    error: function (xhr) {
-                        alert("Error: " + xhr.responseText);
-                    }
-                });
-            });
         });
     </script>
 </head>
