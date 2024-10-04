@@ -14,8 +14,8 @@
 <nav class="Navbar ">
     <h1 class="title">Gestionnaire D'employés</h1>
     <div style="width: 60% ; height: fit-content; display: flex; justify-content: space-between; ">
-        <label style="position: relative;" class="label">
-            <div class="iconsContainer Hidden" style="position: absolute; z-index: 999; width: 20%; min-height: fit-content; display: flex; flex-direction: column; justify-content: center; gap:5px; padding: 10px 0; align-items: center;  background-color: rgba(133, 134, 133, 0.144); right: 0; top: 100%;">
+        <label style="position: relative; box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;" class="label" >
+            <div class="iconsContainer Hidden" style="position: absolute; z-index: 999; width: 20%; min-height: fit-content; display: flex; flex-direction: column; justify-content: center; gap:5px; padding: 10px 0; align-items: center;  background-color: rgb(255, 255, 255); border-radius: 15px;  right: 0; top: 100%;">
                 <img onclick="SetFilter(this,'Email')"  width="30" height="30"  src="https://img.icons8.com/ios/30/email.png" alt="email"/>
                 <img onclick="SetFilter(this,'Phone')" width="30" height="30" src="https://img.icons8.com/ios/30/apple-phone.png" alt="apple-phone"/>
                 <img onclick="SetFilter(this,'Department')" width="30" height="30" src="https://img.icons8.com/ios/30/department.png" alt="department"/>
@@ -58,13 +58,18 @@
         display: flex;
         height: 15%;
         width: 100%;
-        border: 1px solid;
+        margin: 30px;
+        margin-top: 10px;
         justify-content: center;
         align-items: center;
         flex-direction: column;
     }
+    .title{
+        float: left;
+        align-self: start;
+    }
     .Container{
-        margin: 10px;
+        margin: 10px 50px;
         border: 1px solid;
         flex-grow: 1;
         max-height:95% ;
