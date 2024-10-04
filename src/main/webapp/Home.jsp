@@ -23,6 +23,7 @@
                 <img onclick="SetFilter(this,'Name')" width="30" height="30" src="https://img.icons8.com/ios/30/collaborator-male.png" alt="collaborator-male"/>
             </div>
             <span onclick="toggleIcons()" class="icon">
+
             <img width="30" height="30" src="https://img.icons8.com/ios/30/collaborator-male.png" alt="collaborator-male"/>
         </span>
             <input
