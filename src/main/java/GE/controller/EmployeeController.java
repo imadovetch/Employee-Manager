@@ -56,13 +56,17 @@ public class EmployeeController extends HttpServlet {
             Employee employee = new Employee(name, email, phone_number, position, department);
             employeeDAO.save(employee);
 
+            // Return the newly created employee as JSON
             response.setStatus(HttpServletResponse.SC_CREATED); // 201 Created
-            response.getWriter().write("Employee added successfully.");
+            String jsonResponse = String.format("{\"id\": %d, \"name\": \"%s\", \"email\": \"%s\", \"phone\": \"%s\", \"position\": \"%s\", \"department\": \"%s\"}",
+                    employee.getId(), employee.getName(), employee.getEmail(), employee.getPhone(), employee.getPosition(), employee.getDepartment());
+            response.getWriter().write(jsonResponse);
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 Bad Request
             response.getWriter().write("Missing employee details.");
         }
     }
+
 
     @Override
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
