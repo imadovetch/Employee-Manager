@@ -1,27 +1,18 @@
 package utils;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
+import io.vertx.core.Vertx;
+import io.vertx.hibernate.reactive.ReactiveSessionFactory;
 
 public class HibernateUtil {
-    private static SessionFactory sessionFactory;
+
+    private static ReactiveSessionFactory sessionFactory;
 
     static {
-        try {
-            sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-        } catch (Throwable ex) {
-            throw new ExceptionInInitializerError(ex);
-        }
+        Vertx vertx = Vertx.vertx();
+        sessionFactory = ReactiveSessionFactory.build("hibernate.cfg.xml", vertx);
     }
 
-    public static SessionFactory getSessionFactory() {
+    public static ReactiveSessionFactory getSessionFactory() {
         return sessionFactory;
     }
-
-    public static void shutdown() {
-        getSessionFactory().close();
-    }
-
-
 }
