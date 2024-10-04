@@ -58,6 +58,7 @@ public class Middleware implements Filter {
                 httpResponse.getWriter().write("{\"error\": \"Invalid route for DELETE request.\"}");
                 return;
             }
+
         }
 
         if ("PUT".equalsIgnoreCase(method)) {
