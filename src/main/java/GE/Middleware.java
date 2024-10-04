@@ -57,6 +57,7 @@ public class Middleware implements Filter {
                 httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 httpResponse.getWriter().write("{\"error\": \"Invalid route for DELETE request.\"}");
                 return;
+
             }
 
         }
